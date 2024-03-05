@@ -1,0 +1,1186 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Dealing with Problematic Data &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Dealing_with_Problematic_Data';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Manipulation" href="Data_Manipulation.html" />
+    <link rel="prev" title="Data Selection" href="Data_Selection.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to Data Wrangling with Pandas
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Data_Preparation_with_Pandas.html">Data Preparation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Data_Selection.html">Data Selection</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Dealing with Problematic Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Data_Manipulation.html">Data Manipulation</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FDealing_with_Problematic_Data.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Dealing_with_Problematic_Data.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Dealing with Problematic Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-in-setting-index-in-pandas-dataframe">Problem in setting index in pandas DataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-strings-to-datetime">Convert Strings to Datetime</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-values">Missing values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-missing-values">Standard Missing Values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-values-that-aren-t-standard">Missing Values That Aren’t Standard</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unexpected-missing-values">Unexpected Missing Values</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="dealing-with-problematic-data">
+<h1>Dealing with Problematic Data<a class="headerlink" href="#dealing-with-problematic-data" title="Permalink to this heading">#</a></h1>
+<section id="problem-in-setting-index-in-pandas-dataframe">
+<h2>Problem in setting index in pandas DataFrame<a class="headerlink" href="#problem-in-setting-index-in-pandas-dataframe" title="Permalink to this heading">#</a></h2>
+<p>It may happen that the dataset contains an index column. How to import it correctly with Pandas?</p>
+<p>We will use a very simple dataset, namely demo_df.csv (the file can be download from my github repository), that contains an index column (this is just a counter and not a feature).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># How to read CSV file from GitHub using pandas</span>
+<span class="c1"># https://stackoverflow.com/questions/55240330/how-to-read-csv-file-from-github-using-pandas</span>
+
+<span class="c1"># url = &#39;https://raw.githubusercontent.com/pairote-sat/SCMA248/main/demo_df&#39;</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/pairote-sat/SCMA248/main/Data/demo_df.csv&#39;</span>
+
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="n">df1</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Unnamed: 0       dates  status
+0           0  2021-03-05  Opened
+1           1  2021-03-16  Opened
+2           2  2021-03-28  Closed
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;Unnamed: 0&#39;, &#39;dates&#39;, &#39;status&#39;], dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Uncomment these commands if the CSV dateset is stored locally.</span>
+
+<span class="c1"># df1 = pd.read_csv(&#39;/Users/Kaemyuijang/SCMA248/demo_df.csv&#39;)</span>
+<span class="c1"># print(df1.head())</span>
+<span class="c1"># df1.columns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We want to specify that ‘Unnamed: 0’ is the index column  while loading this data set with the following command (with the parameter <code class="docutils literal notranslate"><span class="pre">index_col</span></code>):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">df1</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dates</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2021-03-05</td>
+      <td>Opened</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2021-03-16</td>
+      <td>Opened</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2021-03-28</td>
+      <td>Closed</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The dataset is loaded and the index is correct after performing the command.</p>
+</section>
+<section id="convert-strings-to-datetime">
+<h2>Convert Strings to Datetime<a class="headerlink" href="#convert-strings-to-datetime" title="Permalink to this heading">#</a></h2>
+<p>However, we see an issue right away: all of the data, including dates, has been parsed as integers (or, in other cases, as string). If the dates do not have a particularly unusual format, you can use the autodetection routines to identify the column that contains the date data. It works nicely with the following arguments when the data file is stored locally.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># df2 = pd.read_csv(&#39;/Users/Kaemyuijang/SCMA248/demo_df.csv&#39;, index_col = 0, parse_dates = [&#39;dates&#39;])</span>
+<span class="c1"># print(df2.head())</span>
+<span class="c1"># df2.dtypes</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For the same dataset downloaded from Github, if a column or index contains an unparseable date, the entire column or index will be returned unaltered as an object data type. For non-standard datetime parsing, use pd.to_datetime after pd.read_csv:</p>
+<p><code class="docutils literal notranslate"><span class="pre">pd.to_datetime(df['DataFrame</span> <span class="pre">Column'],</span> <span class="pre">format=specify</span> <span class="pre">your</span> <span class="pre">format)</span></code></p>
+<p>Remember that the date format for our example is yyyymmdd.</p>
+<p>The following is a representation of this date format <code class="docutils literal notranslate"><span class="pre">format</span> <span class="pre">=</span>&#160; <span class="pre">'%d%m%Y'</span></code> (or <code class="docutils literal notranslate"><span class="pre">format</span> <span class="pre">=</span>&#160; <span class="pre">'%Y%m%d'</span></code>).</p>
+<p>See <a class="reference external" href="https://datatofish.com/strings-to-datetime-pandas/">https://datatofish.com/strings-to-datetime-pandas/</a> for more details.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;dates&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df2</span><span class="p">)</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       dates  status
+0 2021-03-05  Opened
+1 2021-03-16  Opened
+2 2021-03-28  Closed
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dates     datetime64[ns]
+status            object
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;dates&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;dates&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">%m%Y&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df2</span><span class="p">)</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       dates  status
+0 2021-03-05  Opened
+1 2021-03-16  Opened
+2 2021-03-28  Closed
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dates     datetime64[ns]
+status            object
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="missing-values">
+<h2>Missing values<a class="headerlink" href="#missing-values" title="Permalink to this heading">#</a></h2>
+<p>We will concentrate on missing values, which is perhaps the most challenging data cleaning operation.</p>
+<p>It’s a good idea to have an overall sense of a data set before you start cleaning it. After that, you can develop a plan for cleaning the data.</p>
+<p>To begin, I like to ask the following questions:</p>
+<ul class="simple">
+<li><p>What are the features?</p></li>
+<li><p>What sorts of data are required (int, float, text, boolean)?</p></li>
+<li><p>Is there any evident data missing (values that Pandas can detect)?</p></li>
+<li><p>Is there any other type of missing data that isn’t as clear (and that Pandas can’t easily detect)?</p></li>
+</ul>
+<p>Let’s have a look at an example by using a small sample data namely property_data.csv. The file can be obtained from Github: <a class="reference external" href="https://raw.githubusercontent.com/pairote-sat/SCMA248/main/property_data.csv">https://raw.githubusercontent.com/pairote-sat/SCMA248/main/property_data.csv</a>.</p>
+<p>In what follows, we also specify that ‘PID’ (personal indentifier) is the index column while loading this data set with the following command (with the parameter index_col):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/pairote-sat/SCMA248/main/Data/property_data.csv&#39;</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ST_NUM</th>
+      <th>ST_NAME</th>
+      <th>OWN_OCCUPIED</th>
+      <th>NUM_BEDROOMS</th>
+      <th>NUM_BATH</th>
+      <th>SQ_FT</th>
+    </tr>
+    <tr>
+      <th>PID</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>10101.0</th>
+      <td>104.0</td>
+      <td>Khao San</td>
+      <td>Y</td>
+      <td>3</td>
+      <td>1</td>
+      <td>1000</td>
+    </tr>
+    <tr>
+      <th>10102.0</th>
+      <td>197.0</td>
+      <td>Silom</td>
+      <td>N</td>
+      <td>3</td>
+      <td>1.5</td>
+      <td>--</td>
+    </tr>
+    <tr>
+      <th>10103.0</th>
+      <td>NaN</td>
+      <td>Silom</td>
+      <td>N</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>850</td>
+    </tr>
+    <tr>
+      <th>10104.0</th>
+      <td>201.0</td>
+      <td>Sukhumvit</td>
+      <td>12</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>700</td>
+    </tr>
+    <tr>
+      <th>NaN</th>
+      <td>203.0</td>
+      <td>Sukhumvit</td>
+      <td>Y</td>
+      <td>3</td>
+      <td>2</td>
+      <td>1600</td>
+    </tr>
+    <tr>
+      <th>10106.0</th>
+      <td>207.0</td>
+      <td>Sukhumvit</td>
+      <td>Y</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>800</td>
+    </tr>
+    <tr>
+      <th>10107.0</th>
+      <td>NaN</td>
+      <td>Thonglor</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>HURLEY</td>
+      <td>950</td>
+    </tr>
+    <tr>
+      <th>10108.0</th>
+      <td>213.0</td>
+      <td>Rama 1</td>
+      <td>Y</td>
+      <td>--</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10109.0</th>
+      <td>215.0</td>
+      <td>Rama 1</td>
+      <td>Y</td>
+      <td>na</td>
+      <td>2</td>
+      <td>1800</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We notice that the PID (personal identifiers) as the index name has a missing value, i.e. NaN  (not any number). We will replace this missing PID with 10105 and also convert from floats to integers.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rowindex</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">rowindex</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10105.0</span>
+<span class="n">rowindex</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rowindex</span><span class="p">]</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">rowindex</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;ST_NUM&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10101    104.0
+10102    197.0
+10103      NaN
+10104    201.0
+10105    203.0
+10106    207.0
+10107      NaN
+10108    213.0
+10109    215.0
+Name: ST_NUM, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Alternatively, one can use Numpy to produce the same result. Simply run the following commands. Here we use <code class="docutils literal notranslate"><span class="pre">.astype()</span></code> method to convert the type of an array.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">df</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">rowindex</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<span class="n">rowindex</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10105.0</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">rowindex</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;ST_NUM&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10101    104.0
+10102    197.0
+10103      NaN
+10104    201.0
+10105    203.0
+10106    207.0
+10107      NaN
+10108    213.0
+10109    215.0
+Name: ST_NUM, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now I can answer my first question: what are features? The following features can be obtained from the column names:</p>
+<ul class="simple">
+<li><p>ST_NUM is the street number</p></li>
+<li><p>ST_NAME is the street name</p></li>
+<li><p>OWN_OCCUPIED: Is the residence owner occupied?</p></li>
+<li><p>NUM_BEDROOMS: the number of rooms</p></li>
+</ul>
+<p>We can also respond to the question, What are the expected types?</p>
+<ul class="simple">
+<li><p>ST_NUM is either a float or an int… a numeric type of some sort</p></li>
+<li><p>ST_NAME is a string variable.</p></li>
+<li><p>OWN_OCCUPIED: string; OWN_OCCUPIED: string; OWN _OCCUPIED N (“No”) or Y (“Yes”)</p></li>
+<li><p>NUM_BEDROOMS is a numeric type that can be either float or int.</p></li>
+</ul>
+</section>
+<section id="standard-missing-values">
+<h2>Standard Missing Values<a class="headerlink" href="#standard-missing-values" title="Permalink to this heading">#</a></h2>
+<p>So, what exactly do I mean when I say “standard missing values?” These are missing values that Pandas can detect.</p>
+<p>Let’s return to our initial dataset and examine the “Street Number” column.</p>
+<p>There are an empty cell in the third row (from the original file). A value of “NaN” appears in the seventh row.</p>
+<p>Both of these numbers are obviously missing. Let’s see how Pandas handle these situations. We can see that Pandas filled in the blank space with “NaN”.</p>
+<p>We can confirm that both the missing value and “NA” were detected as missing values using the isnull() method. True for both boolean responses.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ST_NUM&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10101    False
+10102    False
+10103     True
+10104    False
+10105    False
+10106    False
+10107     True
+10108    False
+10109    False
+Name: ST_NUM, dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<p>Similarly, for the NUM_BEDROOMS column of the original CSV file, users manually entering missing values with different names “n/a” and “NA”. Pandas also recognized these as missing values and filled with “NaN”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;NUM_BEDROOMS&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10101      3
+10102      3
+10103    NaN
+10104      1
+10105      3
+10106    NaN
+10107      2
+10108     --
+10109     na
+Name: NUM_BEDROOMS, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="missing-values-that-aren-t-standard">
+<h2>Missing Values That Aren’t Standard<a class="headerlink" href="#missing-values-that-aren-t-standard" title="Permalink to this heading">#</a></h2>
+<p>It is possible that there are missing values with different formats in some cases.</p>
+<p>There are two other missing values in this column of different formats</p>
+<ul class="simple">
+<li><p>na</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--</span></code></p></li>
+</ul>
+<p>Putting this different format in a list is a simple approach to detect them. When we import the data, Pandas will immediately recognize them. Here’s an example of how we might go about it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Making a list of missing value types</span>
+<span class="n">missing_values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;na&quot;</span><span class="p">,</span> <span class="s2">&quot;--&quot;</span><span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">na_values</span> <span class="o">=</span> <span class="n">missing_values</span><span class="p">)</span>
+
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ST_NUM</th>
+      <th>ST_NAME</th>
+      <th>OWN_OCCUPIED</th>
+      <th>NUM_BEDROOMS</th>
+      <th>NUM_BATH</th>
+      <th>SQ_FT</th>
+    </tr>
+    <tr>
+      <th>PID</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>10101.0</th>
+      <td>104.0</td>
+      <td>Khao San</td>
+      <td>Y</td>
+      <td>3.0</td>
+      <td>1</td>
+      <td>1000.0</td>
+    </tr>
+    <tr>
+      <th>10102.0</th>
+      <td>197.0</td>
+      <td>Silom</td>
+      <td>N</td>
+      <td>3.0</td>
+      <td>1.5</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10103.0</th>
+      <td>NaN</td>
+      <td>Silom</td>
+      <td>N</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>850.0</td>
+    </tr>
+    <tr>
+      <th>10104.0</th>
+      <td>201.0</td>
+      <td>Sukhumvit</td>
+      <td>12</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>700.0</td>
+    </tr>
+    <tr>
+      <th>NaN</th>
+      <td>203.0</td>
+      <td>Sukhumvit</td>
+      <td>Y</td>
+      <td>3.0</td>
+      <td>2</td>
+      <td>1600.0</td>
+    </tr>
+    <tr>
+      <th>10106.0</th>
+      <td>207.0</td>
+      <td>Sukhumvit</td>
+      <td>Y</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>800.0</td>
+    </tr>
+    <tr>
+      <th>10107.0</th>
+      <td>NaN</td>
+      <td>Thonglor</td>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>HURLEY</td>
+      <td>950.0</td>
+    </tr>
+    <tr>
+      <th>10108.0</th>
+      <td>213.0</td>
+      <td>Rama 1</td>
+      <td>Y</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10109.0</th>
+      <td>215.0</td>
+      <td>Rama 1</td>
+      <td>Y</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>1800.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="unexpected-missing-values">
+<h2>Unexpected Missing Values<a class="headerlink" href="#unexpected-missing-values" title="Permalink to this heading">#</a></h2>
+<p>We have observed both standard and non-standard missing data so far. What if we have a type that is not expected?</p>
+<p>For instance, if our feature is supposed to be a string but it’s a numeric type, it’s technically a missing value.</p>
+<p>Take a look at the column labeled “OWN_OCCUPIED” to understand what I’m talking about.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;OWN_OCCUPIED&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PID
+10101.0      Y
+10102.0      N
+10103.0      N
+10104.0     12
+NaN          Y
+10106.0      Y
+10107.0    NaN
+10108.0      Y
+10109.0      Y
+Name: OWN_OCCUPIED, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>We know Pandas will recognize the empty cell in row seven as a missing value because of our prior examples.</p>
+<p>The number 12 appears in the fourth row. This number type should be a missing value because the result for Owner Occupied should clearly be a string (Y or N).
+Because this example is a little more complicated, we will need to find a plan for identifying missing values. There are a few alternative routes to take, but this is how I’m going to go about it.</p>
+<ol class="arabic simple">
+<li><p>Loop through The OWN OCCUPIED column.</p></li>
+<li><p>Convert the entry to an integer.</p></li>
+<li><p>If the entry may be transformed to an integer,  enter a missing value.</p></li>
+<li><p>We know the number cannot be an integer if it cannott be an integer.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">df</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">rowindex</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<span class="n">rowindex</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10105.0</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">rowindex</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Detecting numbers </span>
+<span class="n">cnt</span><span class="o">=</span><span class="mi">10101</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;OWN_OCCUPIED&#39;</span><span class="p">]:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cnt</span><span class="p">,</span> <span class="s1">&#39;OWN_OCCUPIED&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="n">cnt</span><span class="o">+=</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;OWN_OCCUPIED&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10101      Y
+10102      N
+10103      N
+10104    NaN
+10105      Y
+10106      Y
+10107    NaN
+10108      Y
+10109      Y
+Name: OWN_OCCUPIED, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the code, we loop through each entry in the “Owner Occupied” column. To try to change the entry to an integer, we use int(row). If the value can be changed to an integer, we change the entry to a missing value using np.nan from Numpy. On the other hand, if the value cannot be changed to an integer, we pass it and continue.</p>
+<p>You will notice that I have used try and except ValueError. This is called exception handling, and we use this to handle errors.</p>
+<p>If we tried to change an entry to an integer and it could not be changed, a ValueError would be returned and the code would terminate. To deal with this, we use exception handling to detect these errors and continue.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Data_Selection.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data Selection</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Data_Manipulation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data Manipulation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-in-setting-index-in-pandas-dataframe">Problem in setting index in pandas DataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-strings-to-datetime">Convert Strings to Datetime</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-values">Missing values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-missing-values">Standard Missing Values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-values-that-aren-t-standard">Missing Values That Aren’t Standard</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unexpected-missing-values">Unexpected Missing Values</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
